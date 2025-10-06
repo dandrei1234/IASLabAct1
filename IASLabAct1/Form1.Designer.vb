@@ -30,15 +30,16 @@ Partial Class Form1
         txtPassword = New TextBox()
         MySqlCommand1 = New MySql.Data.MySqlClient.MySqlCommand()
         lbluser = New Label()
-        lblpass = New Label()
         cbpass = New CheckBox()
         Label3 = New Label()
         Label4 = New Label()
+        lblpassword = New Label()
         SuspendLayout()
         ' 
         ' btnLogin
         ' 
-        btnLogin.Location = New Point(199, 294)
+        btnLogin.Font = New Font("Times New Roman", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnLogin.Location = New Point(82, 215)
         btnLogin.Name = "btnLogin"
         btnLogin.Size = New Size(97, 32)
         btnLogin.TabIndex = 2
@@ -47,7 +48,8 @@ Partial Class Form1
         ' 
         ' btnExit
         ' 
-        btnExit.Location = New Point(352, 295)
+        btnExit.Font = New Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        btnExit.Location = New Point(224, 215)
         btnExit.Name = "btnExit"
         btnExit.Size = New Size(97, 30)
         btnExit.TabIndex = 3
@@ -60,7 +62,7 @@ Partial Class Form1
         Label1.BackColor = Color.Transparent
         Label1.Font = New Font("Times New Roman", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label1.ForeColor = SystemColors.ControlLightLight
-        Label1.Location = New Point(165, 134)
+        Label1.Location = New Point(45, 118)
         Label1.Name = "Label1"
         Label1.Size = New Size(88, 21)
         Label1.TabIndex = 2
@@ -72,7 +74,7 @@ Partial Class Form1
         Label2.BackColor = Color.Transparent
         Label2.Font = New Font("Times New Roman", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label2.ForeColor = SystemColors.ControlLightLight
-        Label2.Location = New Point(165, 205)
+        Label2.Location = New Point(45, 173)
         Label2.Name = "Label2"
         Label2.Size = New Size(88, 21)
         Label2.TabIndex = 3
@@ -80,14 +82,14 @@ Partial Class Form1
         ' 
         ' txtUsername
         ' 
-        txtUsername.Location = New Point(259, 132)
+        txtUsername.Location = New Point(139, 116)
         txtUsername.Name = "txtUsername"
         txtUsername.Size = New Size(163, 23)
         txtUsername.TabIndex = 0
         ' 
         ' txtPassword
         ' 
-        txtPassword.Location = New Point(259, 203)
+        txtPassword.Location = New Point(139, 171)
         txtPassword.Name = "txtPassword"
         txtPassword.Size = New Size(163, 23)
         txtPassword.TabIndex = 1
@@ -102,28 +104,20 @@ Partial Class Form1
         ' lbluser
         ' 
         lbluser.AutoSize = True
-        lbluser.Location = New Point(259, 114)
+        lbluser.Location = New Point(139, 98)
         lbluser.Name = "lbluser"
         lbluser.Size = New Size(0, 15)
         lbluser.TabIndex = 6
-        ' 
-        ' lblpass
-        ' 
-        lblpass.AutoSize = True
-        lblpass.Location = New Point(259, 185)
-        lblpass.Name = "lblpass"
-        lblpass.Size = New Size(0, 15)
-        lblpass.TabIndex = 7
         ' 
         ' cbpass
         ' 
         cbpass.AutoSize = True
         cbpass.BackColor = Color.Transparent
-        cbpass.Font = New Font("Times New Roman", 8.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        cbpass.Font = New Font("Times New Roman", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         cbpass.ForeColor = SystemColors.ControlLightLight
-        cbpass.Location = New Point(428, 206)
+        cbpass.Location = New Point(308, 173)
         cbpass.Name = "cbpass"
-        cbpass.Size = New Size(95, 18)
+        cbpass.Size = New Size(103, 19)
         cbpass.TabIndex = 8
         cbpass.Text = "Show Password"
         cbpass.UseVisualStyleBackColor = False
@@ -132,11 +126,11 @@ Partial Class Form1
         ' 
         Label3.AutoSize = True
         Label3.BackColor = Color.Transparent
-        Label3.Font = New Font("Cambria", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label3.Font = New Font("Tahoma", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label3.ForeColor = SystemColors.ControlLightLight
-        Label3.Location = New Point(276, 52)
+        Label3.Location = New Point(139, 40)
         Label3.Name = "Label3"
-        Label3.Size = New Size(110, 25)
+        Label3.Size = New Size(124, 25)
         Label3.TabIndex = 9
         Label3.Text = "Login Here"
         ' 
@@ -145,12 +139,21 @@ Partial Class Form1
         Label4.AutoSize = True
         Label4.BackColor = Color.Transparent
         Label4.BorderStyle = BorderStyle.Fixed3D
+        Label4.Font = New Font("Tahoma", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label4.ForeColor = SystemColors.ControlLightLight
-        Label4.Location = New Point(253, 358)
+        Label4.Location = New Point(97, 269)
         Label4.Name = "Label4"
-        Label4.Size = New Size(171, 17)
+        Label4.Size = New Size(215, 20)
         Label4.TabIndex = 10
         Label4.Text = "No account yet? Register Here."
+        ' 
+        ' lblpassword
+        ' 
+        lblpassword.AutoSize = True
+        lblpassword.Location = New Point(139, 153)
+        lblpassword.Name = "lblpassword"
+        lblpassword.Size = New Size(0, 15)
+        lblpassword.TabIndex = 11
         ' 
         ' Form1
         ' 
@@ -158,11 +161,11 @@ Partial Class Form1
         AutoScaleMode = AutoScaleMode.Font
         BackgroundImage = My.Resources.Resources.blue_background_design_free_vector
         BackgroundImageLayout = ImageLayout.Stretch
-        ClientSize = New Size(666, 416)
+        ClientSize = New Size(424, 355)
+        Controls.Add(lblpassword)
         Controls.Add(Label4)
         Controls.Add(Label3)
         Controls.Add(cbpass)
-        Controls.Add(lblpass)
         Controls.Add(lbluser)
         Controls.Add(txtPassword)
         Controls.Add(txtUsername)
@@ -184,9 +187,9 @@ Partial Class Form1
     Friend WithEvents txtPassword As TextBox
     Friend WithEvents MySqlCommand1 As MySql.Data.MySqlClient.MySqlCommand
     Friend WithEvents lbluser As Label
-    Friend WithEvents lblpass As Label
     Friend WithEvents cbpass As CheckBox
     Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
+    Friend WithEvents lblpassword As Label
 
 End Class

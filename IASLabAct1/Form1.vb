@@ -1,6 +1,8 @@
-﻿Imports MySql.Data.MySqlClient
+﻿
+Imports MySql.Data.MySqlClient
 Imports System.Security.Cryptography
 Imports System.Text
+Imports Windows.Win32.System
 Public Class Form1
     Dim conn As New MySqlConnection("server=localhost; userid=root; password=root; database=user_authentication_db;")
     Public Function ComputeSHA256Hash(ByVal rawData As String) As String
@@ -25,13 +27,20 @@ Public Class Form1
 
             If reader.HasRows Then
                 reader.Read()
-                Dim status As Integer = reader.GetInt32(reader.GetOrdinal("status"))
-                If status = 0 Then
-                    MessageBox.Show("User account pending.")
-                ElseIf status = 1 Then
-                    MessageBox.Show("Login Successful, Authorized user!")
+                Dim Status = reader.GetString("status")
+                Dim role = reader.GetString("role")
+                If Status = "authorized" And role = "staff" Then
+                    Form5.Show()
                     Me.Hide()
+                ElseIf Status = "authorized" And role = "admin" Then
+                    MessageBox.Show("Login successful. Your account is Authorized.", "Access Granted", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Form2.Show()
+                    Me.Hide()
+                ElseIf Status = "pending" And (role = "staff" Or role = "admin") Then
+                    Form5.Show()
+                    Me.Hide()
+                ElseIf Status = "unauthorized" And (role = "staff" Or role = "admin") Then
+                    MessageBox.Show("Your account is Denied. Please contact the administrator.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 End If
                 LoggedStatus = 0
             Else
@@ -52,17 +61,14 @@ Public Class Form1
             If conn.State() = ConnectionState.Open Then conn.Close()
         End Try
     End Sub
-
-    Private Sub txtPassword_TextChanged(sender As Object, e As EventArgs) Handles txtPassword.KeyDown
-        txtPassword.UseSystemPasswordChar = True
+    Private Sub lblpassword_Click(sender As Object, e As EventArgs) Handles txtPassword.KeyDown
         If Control.IsKeyLocked(Keys.CapsLock) Then
-            lblpass.Text = "Caps Lock is ON"
-            lblpass.ForeColor = Color.Red
+            lblpassword.Text = "Caps Lock is ON"
+            lblpassword.ForeColor = Color.Red
         Else
-            lblpass.Text = ""
+            lblpassword.Text = ""
         End If
     End Sub
-
     Private Sub txtUsername_TextChanged(sender As Object, e As EventArgs) Handles txtUsername.KeyDown
         If Control.IsKeyLocked(Keys.CapsLock) Then
             lbluser.Text = "Caps Lock is ON"
@@ -86,5 +92,10 @@ Public Class Form1
     Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click
         Me.Hide()
         Form3.Show()
+    End Sub
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        txtPassword.UseSystemPasswordChar = True
+        cbpass.Checked = False
     End Sub
 End Class
