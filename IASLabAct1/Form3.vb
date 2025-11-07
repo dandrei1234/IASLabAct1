@@ -83,12 +83,4 @@ Public Class Form3
             End If
         End Try
     End Sub
-
-    Private Sub cbpass_CheckedChanged(sender As Object, e As EventArgs) Handles cbpass.CheckedChanged
-        If cbpass.Checked Then
-            txtPassword.UseSystemPasswordChar = False
-        Else
-            txtPassword.UseSystemPasswordChar = True
-        End If
-    End Sub
 End Class

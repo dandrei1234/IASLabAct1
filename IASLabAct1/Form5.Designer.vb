@@ -33,7 +33,7 @@ Partial Class Form5
         Label1.BackColor = Color.Transparent
         Label1.Font = New Font("Tahoma", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label1.ForeColor = Color.White
-        Label1.Location = New Point(228, 64)
+        Label1.Location = New Point(123, 62)
         Label1.Name = "Label1"
         Label1.Size = New Size(377, 29)
         Label1.TabIndex = 0
@@ -42,7 +42,7 @@ Partial Class Form5
         ' btnBacktoLogin
         ' 
         btnBacktoLogin.Font = New Font("Times New Roman", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        btnBacktoLogin.Location = New Point(346, 184)
+        btnBacktoLogin.Location = New Point(221, 151)
         btnBacktoLogin.Name = "btnBacktoLogin"
         btnBacktoLogin.Size = New Size(141, 23)
         btnBacktoLogin.TabIndex = 1
@@ -54,7 +54,7 @@ Partial Class Form5
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), Image)
-        ClientSize = New Size(800, 450)
+        ClientSize = New Size(619, 399)
         Controls.Add(btnBacktoLogin)
         Controls.Add(Label1)
         Name = "Form5"

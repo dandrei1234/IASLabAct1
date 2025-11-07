@@ -48,7 +48,11 @@ Public Class Form2
             conn.Open()
             Using cmd As New MySqlCommand(query, conn)
                 cmd.Parameters.AddWithValue("@username", txtUsername.Text)
-                cmd.Parameters.AddWithValue("@password", ComputeSHA256Hash(txtPassword.Text))
+                If txtPassword.Text.Length > "20" Then
+                    cmd.Parameters.AddWithValue("@password", txtPassword.Text)
+                ElseIf txtPassword.Text.Length <= "20" Then
+                    cmd.Parameters.AddWithValue("@password", ComputeSHA256Hash(txtPassword.Text))
+                End If
                 cmd.Parameters.AddWithValue("@status", cbStatus.Text)
                 cmd.Parameters.AddWithValue("@role", cbRole.Text)
                 cmd.Parameters.AddWithValue("@id", Convert.ToInt32(txtID.Text))
@@ -100,29 +104,22 @@ Public Class Form2
     End Sub
 
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
-        Dim searchText As String = txtUsername.Text.Trim()
-
-        If searchText = "" Then
-            MessageBox.Show("Please enter a name to search.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Exit Sub
+        Dim query As String = $"SELECT id, username, password, role, status FROM `user_authentication_db`.`users_tbl` WHERE username LIKE '{txtUsername.Text}%'"
+        If txtUsername.Text = "" Then
+            MessageBox.Show("No input on search bar")
+        Else
+            Try
+                Using conn As New MySqlConnection("server=LocalHost; userid=root; password=root; database=user_authentication_db;")
+                    Dim adapter As New MySqlDataAdapter(query, conn)
+                    Dim table As New DataTable()
+                    adapter.Fill(table)
+                    dgvacc.DataSource = table
+                End Using
+            Catch ex As Exception
+                MsgBox(ex.Message)
+            End Try
+            btnX.Visible = True
         End If
-
-        Dim query As String = "SELECT id,username,role,status FROM users_tbl WHERE username LIKE @search"
-        Try
-            Dim adapter As New MySqlDataAdapter(query, conn)
-            adapter.SelectCommand.Parameters.AddWithValue("@search", "%" & searchText & "%")
-            Dim table As New DataTable()
-            adapter.Fill(table)
-            dgvacc.DataSource = table
-
-            If table.Rows.Count = 0 Then
-                MessageBox.Show("No users found with that name.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            End If
-
-            txtUsername.Text = ""
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
     End Sub
 
     Private Sub dgvacc_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvacc.CellContentClick
@@ -135,5 +132,28 @@ Public Class Form2
             cbRole.Text = row.Cells("role").Value.ToString()
         End If
     End Sub
+    Private Sub refresh()
+        Dim query As String = "SELECT id, username, password, role, status FROM `user_authentication_db`.`users_tbl`"
+        Try
+            Using conn As New MySqlConnection("server=LocalHost; userid=root; password=root; database=user_authentication_db;")
+                Dim adapter As New MySqlDataAdapter(query, conn)
+                Dim table As New DataTable()
+                adapter.Fill(table)
+                dgvacc.DataSource = table
+            End Using
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
 
+    Private Sub btnX_Click(sender As Object, e As EventArgs) Handles btnX.Click
+        txtUsername.Text = ""
+        refresh()
+        btnX.Visible = False
+    End Sub
+
+    Private Sub InventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InventoryToolStripMenuItem.Click
+        Me.Close()
+        Inventory_Form.Show()
+    End Sub
 End Class

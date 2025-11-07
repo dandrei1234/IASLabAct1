@@ -42,6 +42,8 @@ Partial Class Form2
         Label4 = New Label()
         Label5 = New Label()
         txtPassword = New TextBox()
+        btnX = New Button()
+        InventoryToolStripMenuItem = New ToolStripMenuItem()
         MenuStrip1.SuspendLayout()
         CType(dgvacc, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -66,15 +68,16 @@ Partial Class Form2
         ' 
         ' SettingToolStripMenuItem
         ' 
-        SettingToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {UserProfileToolStripMenuItem})
+        SettingToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {UserProfileToolStripMenuItem, InventoryToolStripMenuItem})
+        SettingToolStripMenuItem.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         SettingToolStripMenuItem.Name = "SettingToolStripMenuItem"
-        SettingToolStripMenuItem.Size = New Size(61, 20)
+        SettingToolStripMenuItem.Size = New Size(65, 20)
         SettingToolStripMenuItem.Text = "Settings"
         ' 
         ' UserProfileToolStripMenuItem
         ' 
         UserProfileToolStripMenuItem.Name = "UserProfileToolStripMenuItem"
-        UserProfileToolStripMenuItem.Size = New Size(133, 22)
+        UserProfileToolStripMenuItem.Size = New Size(180, 22)
         UserProfileToolStripMenuItem.Text = "Add Profile"
         ' 
         ' MySqlCommand1
@@ -212,11 +215,27 @@ Partial Class Form2
         txtPassword.Size = New Size(109, 23)
         txtPassword.TabIndex = 17
         ' 
+        ' btnX
+        ' 
+        btnX.Location = New Point(767, 115)
+        btnX.Name = "btnX"
+        btnX.Size = New Size(20, 20)
+        btnX.TabIndex = 19
+        btnX.Text = "X"
+        btnX.UseVisualStyleBackColor = True
+        ' 
+        ' InventoryToolStripMenuItem
+        ' 
+        InventoryToolStripMenuItem.Name = "InventoryToolStripMenuItem"
+        InventoryToolStripMenuItem.Size = New Size(180, 22)
+        InventoryToolStripMenuItem.Text = "Inventory"
+        ' 
         ' Form2
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(805, 441)
+        Controls.Add(btnX)
         Controls.Add(Label5)
         Controls.Add(txtPassword)
         Controls.Add(Label4)
@@ -264,4 +283,6 @@ Partial Class Form2
     Friend WithEvents Label4 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents txtPassword As TextBox
+    Friend WithEvents btnX As Button
+    Friend WithEvents InventoryToolStripMenuItem As ToolStripMenuItem
 End Class

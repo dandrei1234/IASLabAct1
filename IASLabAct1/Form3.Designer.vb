@@ -31,7 +31,6 @@ Partial Class Form3
         txtConfirmPassword = New TextBox()
         btnRegister = New Button()
         btnBacktoLogin = New Button()
-        cbpass = New CheckBox()
         Label2 = New Label()
         Label5 = New Label()
         SuspendLayout()
@@ -111,19 +110,6 @@ Partial Class Form3
         btnBacktoLogin.Text = "Back to Login"
         btnBacktoLogin.UseVisualStyleBackColor = True
         ' 
-        ' cbpass
-        ' 
-        cbpass.AutoSize = True
-        cbpass.BackColor = Color.Transparent
-        cbpass.Font = New Font("Times New Roman", 9.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        cbpass.ForeColor = SystemColors.Control
-        cbpass.Location = New Point(353, 136)
-        cbpass.Name = "cbpass"
-        cbpass.Size = New Size(111, 19)
-        cbpass.TabIndex = 9
-        cbpass.Text = "Show Password"
-        cbpass.UseVisualStyleBackColor = False
-        ' 
         ' Label2
         ' 
         Label2.AutoSize = True
@@ -157,7 +143,6 @@ Partial Class Form3
         ClientSize = New Size(475, 326)
         Controls.Add(Label5)
         Controls.Add(Label2)
-        Controls.Add(cbpass)
         Controls.Add(btnBacktoLogin)
         Controls.Add(btnRegister)
         Controls.Add(txtConfirmPassword)
@@ -180,7 +165,6 @@ Partial Class Form3
     Friend WithEvents txtConfirmPassword As TextBox
     Friend WithEvents btnRegister As Button
     Friend WithEvents btnBacktoLogin As Button
-    Friend WithEvents cbpass As CheckBox
     Friend WithEvents Label2 As Label
     Friend WithEvents Label5 As Label
 End Class
