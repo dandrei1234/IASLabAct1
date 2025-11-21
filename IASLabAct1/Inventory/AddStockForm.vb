@@ -10,7 +10,9 @@
             productIds.Add(product.Id)
         Next
 
-        cmbProduct.SelectedIndex = 0
+        If products.Count > 0 Then
+            cmbProduct.SelectedIndex = 0
+        End If
     End Sub
 
     Private Sub btnAddStock_Click(sender As Object, e As EventArgs) Handles btnAddStock.Click

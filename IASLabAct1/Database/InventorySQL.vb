@@ -31,7 +31,6 @@ Public Class InventorySQL
     End Sub
 
     Public Shared Sub GetStocksDGV(dgv As DataGridView)
-        dgv.Rows.Clear()
         Database.InsertToDGV(dgv, "CALL ReadStocks();")
     End Sub
 

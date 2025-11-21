@@ -14,6 +14,10 @@ Public Class Database
             Using conn = GetConnection()
                 Dim adapter As New MySqlDataAdapter(query, conn)
                 Dim table As New DataTable()
+
+                dgv.DataSource = Nothing
+                dgv.Rows.Clear()
+
                 adapter.Fill(table)
                 dgv.DataSource = table
             End Using
