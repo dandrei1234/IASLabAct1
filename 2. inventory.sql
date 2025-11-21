@@ -40,6 +40,7 @@ BEGIN
 END //
 DELIMITER ;
 
-
+/*
 CALL AddProduct("Hamburger", 20);
-CALL AddStock(1, 3);
+CALL AddStock(8, 25);
+*/

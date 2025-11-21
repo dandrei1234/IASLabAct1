@@ -35,7 +35,7 @@ Partial Class Inventory_Form
         ' 
         ' btnAddStock
         ' 
-        btnAddStock.Location = New Point(212, 299)
+        btnAddStock.Location = New Point(69, 286)
         btnAddStock.Name = "btnAddStock"
         btnAddStock.Size = New Size(75, 23)
         btnAddStock.TabIndex = 1
