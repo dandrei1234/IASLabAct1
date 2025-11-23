@@ -22,28 +22,64 @@ Partial Class Inventory_Form
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        DataGridView1 = New DataGridView()
-        CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
+        dgvProducts = New DataGridView()
+        btnAdd = New Button()
+        btnDelete = New Button()
+        D = New Button()
+        CType(dgvProducts, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
-        ' DataGridView1
+        ' dgvProducts
         ' 
-        DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridView1.Location = New Point(86, 12)
-        DataGridView1.Name = "DataGridView1"
-        DataGridView1.Size = New Size(618, 248)
-        DataGridView1.TabIndex = 1
+        dgvProducts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        dgvProducts.Location = New Point(85, 12)
+        dgvProducts.Name = "dgvProducts"
+        dgvProducts.Size = New Size(460, 248)
+        dgvProducts.TabIndex = 1
+        ' 
+        ' btnAdd
+        ' 
+        btnAdd.Location = New Point(113, 301)
+        btnAdd.Name = "btnAdd"
+        btnAdd.Size = New Size(75, 23)
+        btnAdd.TabIndex = 2
+        btnAdd.Text = "Add Stock"
+        btnAdd.UseVisualStyleBackColor = True
+        ' 
+        ' btnDelete
+        ' 
+        btnDelete.Location = New Point(221, 301)
+        btnDelete.Name = "btnDelete"
+        btnDelete.Size = New Size(75, 23)
+        btnDelete.TabIndex = 3
+        btnDelete.Text = "Delete"
+        btnDelete.UseVisualStyleBackColor = True
+        ' 
+        ' D
+        ' 
+        D.Location = New Point(326, 301)
+        D.Name = "D"
+        D.Size = New Size(75, 23)
+        D.TabIndex = 4
+        D.Text = "Update"
+        D.UseVisualStyleBackColor = True
         ' 
         ' Inventory_Form
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 450)
-        Controls.Add(DataGridView1)
+        ClientSize = New Size(649, 450)
+        Controls.Add(D)
+        Controls.Add(btnDelete)
+        Controls.Add(btnAdd)
+        Controls.Add(dgvProducts)
         Name = "Inventory_Form"
         Text = "Inventory_Form"
-        CType(DataGridView1, ComponentModel.ISupportInitialize).EndInit()
+        CType(dgvProducts, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
-    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents dgvProducts As DataGridView
+    Friend WithEvents btnAdd As Button
+    Friend WithEvents btnDelete As Button
+    Friend WithEvents D As Button
 End Class
