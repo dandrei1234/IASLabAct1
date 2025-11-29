@@ -60,6 +60,7 @@ Public Class Form4
     Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
         Me.Close()
         Form2.Show()
+        UserActivityMonitor.ResetTimer()
     End Sub
 
 
@@ -196,6 +197,7 @@ Public Class Form4
     End Sub
 
     Private Sub btnCreate_Click(sender As Object, e As EventArgs) Handles btnCreate.Click
+        UserActivityMonitor.ResetTimer()
         Select Case currentState
             Case State.Create
                 CreateUser()

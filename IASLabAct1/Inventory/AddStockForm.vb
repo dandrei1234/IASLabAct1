@@ -5,6 +5,7 @@ Imports System.Windows.Forms
 Public Class AddStockForm
     Dim conn As MySqlConnection = Connection.Create()
     Private Sub btnAddStock_Click(sender As Object, e As EventArgs) Handles btnAddStock.Click
+        UserActivityMonitor.ResetTimer()
         Try
             If cmbFood.SelectedIndex = -1 Then
                 MessageBox.Show("Please select a product.", "Error")
@@ -46,7 +47,7 @@ Public Class AddStockForm
 
             cmbFood.SelectedIndex = -1
             txtQuantity.Clear()
-
+            UserActivityMonitor.ResetTimer()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try

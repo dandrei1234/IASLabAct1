@@ -39,39 +39,18 @@ Public Class Form2
     Private Sub UserProfileToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UserProfileToolStripMenuItem.Click
         Me.Close()
         Form4.Show()
+        UserActivityMonitor.ResetTimer()
     End Sub
 
     Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
+        UserActivityMonitor.ResetTimer()
         UpdateFields(dgvacc.CurrentRow.Index)
         Form4.ToggleUserUpdateUI(Integer.Parse(txtID.Text), txtUsername.Text, cbStatus.Text, cbRole.Text)
         Form4.Show()
-
-
-        'Dim query As String = "UPDATE users_tbl SET username=@username, password=@password, status=@status, role=@role WHERE id=@id"
-        'Try
-        '    conn.Open()
-        '    Using cmd As New MySqlCommand(query, conn)
-        '        cmd.Parameters.AddWithValue("@username", txtUsername.Text)
-        '        If txtPassword.Text.Length > "20" Then
-        '            cmd.Parameters.AddWithValue("@password", txtPassword.Text)
-        '        ElseIf txtPassword.Text.Length <= "20" Then
-        '            cmd.Parameters.AddWithValue("@password", ComputeSHA256Hash(txtPassword.Text))
-        '        End If
-        '        cmd.Parameters.AddWithValue("@status", cbStatus.Text)
-        '        cmd.Parameters.AddWithValue("@role", cbRole.Text)
-        '        cmd.Parameters.AddWithValue("@id", Convert.ToInt32(txtID.Text))
-        '        cmd.ExecuteNonQuery()
-
-        '    End Using
-        '    MessageBox.Show("User updated successfully.")
-        'Catch ex As Exception
-        '    MessageBox.Show("Error: " & ex.Message)
-        'Finally
-        '    conn.Close()
-        'End Try
     End Sub
 
     Private Sub btnView_Click(sender As Object, e As EventArgs) Handles btnView.Click
+        UserActivityMonitor.ResetTimer()
         Dim query As String = "SELECT * FROM users_tbl"
         Try
             conn.Open()
@@ -84,8 +63,10 @@ Public Class Form2
         Finally
             conn.Close()
         End Try
+        UserActivityMonitor.ResetTimer()
     End Sub
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+        UserActivityMonitor.ResetTimer()
         Dim query = "DELETE FROM users_tbl WHERE id=@id"
         Try
             conn.Open()
@@ -112,6 +93,7 @@ Public Class Form2
     End Sub
 
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
+        UserActivityMonitor.ResetTimer()
         Dim query As String = $"SELECT id, username, password, role, status FROM `user_authentication_db`.`users_tbl` WHERE username LIKE '{txtUsername.Text}%'"
         If txtUsername.Text = "" Then
             MessageBox.Show("No input on search bar")
@@ -129,17 +111,11 @@ Public Class Form2
             End Try
             btnX.Visible = True
         End If
+        UserActivityMonitor.ResetTimer()
     End Sub
 
     Private Sub dgvacc_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvacc.CellContentClick
-        'If e.RowIndex >= 0 Then
-        '    Dim row As DataGridViewRow = dgvacc.Rows(e.RowIndex)
-        '    txtID.Text = row.Cells("id").Value.ToString()
-        '    txtUsername.Text = row.Cells("username").Value.ToString()
-        '    txtPassword.Text = row.Cells("password").Value.ToString()
-        '    cbStatus.Text = row.Cells("status").Value.ToString()
-        '    cbRole.Text = row.Cells("role").Value.ToString()
-        'End If
+        UserActivityMonitor.ResetTimer()
         UpdateFields(e.RowIndex)
     End Sub
 
@@ -170,6 +146,7 @@ Public Class Form2
     End Sub
 
     Private Sub btnX_Click(sender As Object, e As EventArgs) Handles btnX.Click
+        UserActivityMonitor.ResetTimer()
         txtUsername.Text = ""
         refresh()
         btnX.Visible = False
@@ -178,21 +155,30 @@ Public Class Form2
     Private Sub InventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InventoryToolStripMenuItem.Click
         Me.Close()
         Inventory_Form.Show()
+        UserActivityMonitor.ResetTimer()
     End Sub
 
     Private Sub BackupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackupToolStripMenuItem.Click
         DatabaseRecovery.BackupDatabase()
+        UserActivityMonitor.ResetTimer()
     End Sub
 
     Private Sub RestoreToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RestoreToolStripMenuItem.Click
         DatabaseRecovery.RestoreDatabase()
+        UserActivityMonitor.ResetTimer()
     End Sub
 
     Private Sub AuditLogsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AuditLogsToolStripMenuItem.Click
         AuditLogs.Show()
+        UserActivityMonitor.ResetTimer()
     End Sub
 
     Private Sub btnLogout_Click(sender As Object, e As EventArgs) Handles btnLogout.Click
         Logout(Me)
+        UserActivityMonitor.StopTimer()
+    End Sub
+
+    Private Sub SettingToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SettingToolStripMenuItem.Click
+        UserActivityMonitor.ResetTimer()
     End Sub
 End Class

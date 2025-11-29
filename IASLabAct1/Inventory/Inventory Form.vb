@@ -3,6 +3,7 @@
 Public Class Inventory_Form
     Dim selectedId As Integer = 0
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
+        UserActivityMonitor.ResetTimer()
         Me.Close()
         AddStockForm.Show()
     End Sub
@@ -43,6 +44,7 @@ Public Class Inventory_Form
     End Sub
 
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+        UserActivityMonitor.ResetTimer()
         If selectedId = 0 Then
             MessageBox.Show("Please select a row first.")
             Exit Sub
@@ -60,6 +62,7 @@ Public Class Inventory_Form
 
         MessageBox.Show("Item soft-deleted!")
         LoadProducts()
+        UserActivityMonitor.ResetTimer()
     End Sub
 
     Private Sub dgvProducts_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProducts.CellClick
@@ -83,6 +86,7 @@ Public Class Inventory_Form
 
 
     Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
+        UserActivityMonitor.ResetTimer()
         If dgvProducts.CurrentRow.Index >= 0 Then
             Dim update As UpdateProductForm = New UpdateProductForm(pName, price, quantity)
             update.Show()
@@ -92,6 +96,7 @@ Public Class Inventory_Form
     End Sub
 
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
+        UserActivityMonitor.ResetTimer()
         btnRefresh.Visible = True
         Dim query As String = "SELECT productname, productprice, quantity FROM products_tbl WHERE productname LIKE @productName"
         If txtSearch.Text.Trim() <> "" Then
@@ -111,6 +116,7 @@ Public Class Inventory_Form
                 MsgBox(ex.Message)
             End Try
         End If
+        UserActivityMonitor.ResetTimer()
     End Sub
     Private Sub refresh()
         Dim query As String = "SELECT productname, productprice, quantity FROM products_tbl"
@@ -126,6 +132,7 @@ Public Class Inventory_Form
         End Try
     End Sub
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
+        UserActivityMonitor.ResetTimer()
         txtSearch.Text = ""
         refresh()
         btnRefresh.Visible = False
@@ -140,4 +147,5 @@ Public Class Inventory_Form
             Logout(Me)
         End If
     End Sub
+
 End Class

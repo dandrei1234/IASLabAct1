@@ -1,4 +1,6 @@
 ﻿Module UserActivityMonitor
+    Private LoginFormSingle As Form1
+
     Public LoggedUserId As Integer
     Public LoggedUsername As String
     Public LoggedRole As String
@@ -11,7 +13,13 @@
     Public remainingTime As Integer = inactivityLimit
     Public currentLabel As Label = LogoutTimeTestForm.lbl ' Label on form to show countdown
 
+    Public Sub SetLoginForm(loginForm As Form1)
+        LoginFormSingle = loginForm
+    End Sub
 
+    Public Sub ShowLogin()
+        LoginFormSingle.Show()
+    End Sub
 
     Public Sub SetLoggedUser(UserId As Integer, Username As String, Role As String, Status As String)
         LoggedUserId = UserId
@@ -24,7 +32,9 @@
         StopTimer()
         AuditLogging.AddEntry("Logged out", "")
         ClearUserCredentials()
-        Form1.Show()
+
+        'Form1.Show()
+        ShowLogin()
         form.Close()
     End Sub    ' Call this in each form's Load
 
@@ -48,8 +58,27 @@
         ' Hook form activity
         AddHandler currentForm.MouseMove, Sub() ResetTimer()
         AddHandler currentForm.KeyPress, Sub() ResetTimer()
+
+        AddHandlerToTextboxes(currentForm)
     End Sub
 
+    Private Sub AddHandlerToTextboxes(parent As Control)
+        For Each ctrl As Control In parent.Controls
+            If TypeOf ctrl Is TextBox Then
+                Dim tb As TextBox = DirectCast(ctrl, TextBox)
+
+                AddHandler tb.TextChanged, Sub() ResetTimer()
+                AddHandler tb.KeyPress, Sub() ResetTimer()
+                AddHandler tb.MouseDown, Sub() ResetTimer()
+
+            End If
+
+            ' Important → Recursively search inside GroupBoxes, Panels, TabPages, etc.
+            If ctrl.HasChildren Then
+                AddHandlerToTextboxes(ctrl)
+            End If
+        Next
+    End Sub
     ' Reset timer on activity
     Public Sub ResetTimer()
         remainingTime = inactivityLimit
@@ -86,8 +115,9 @@
         StopTimer()
 
         ' Show login form
-        Dim loginForm As New Form1()
-        loginForm.Show()
+        'Dim loginForm As New Form1()
+        'loginForm.Show()
+        ShowLogin()
 
         ' Copy open forms to an array to avoid modifying collection during iteration
         Dim openForms() As Form = Application.OpenForms.Cast(Of Form)().ToArray()

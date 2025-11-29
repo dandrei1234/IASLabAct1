@@ -22,29 +22,41 @@ Partial Class AuditLogs
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        DataGridView1 = New DataGridView()
-        CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
+        dgvAuditLogs = New DataGridView()
+        btnBack = New Button()
+        CType(dgvAuditLogs, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
-        ' DataGridView1
+        ' dgvAuditLogs
         ' 
-        DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridView1.Location = New Point(68, 43)
-        DataGridView1.Name = "DataGridView1"
-        DataGridView1.Size = New Size(632, 340)
-        DataGridView1.TabIndex = 0
+        dgvAuditLogs.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        dgvAuditLogs.Location = New Point(68, 43)
+        dgvAuditLogs.Name = "dgvAuditLogs"
+        dgvAuditLogs.Size = New Size(632, 340)
+        dgvAuditLogs.TabIndex = 0
+        ' 
+        ' btnBack
+        ' 
+        btnBack.Location = New Point(625, 12)
+        btnBack.Name = "btnBack"
+        btnBack.Size = New Size(75, 23)
+        btnBack.TabIndex = 1
+        btnBack.Text = "Back"
+        btnBack.UseVisualStyleBackColor = True
         ' 
         ' AuditLogs
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 450)
-        Controls.Add(DataGridView1)
+        Controls.Add(btnBack)
+        Controls.Add(dgvAuditLogs)
         Name = "AuditLogs"
         Text = "AuditLogs"
-        CType(DataGridView1, ComponentModel.ISupportInitialize).EndInit()
+        CType(dgvAuditLogs, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
 
-    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents dgvAuditLogs As DataGridView
+    Friend WithEvents btnBack As Button
 End Class
