@@ -32,7 +32,7 @@ Partial Class AddStockForm
         ' 
         ' btnAddStock
         ' 
-        btnAddStock.Location = New Point(146, 200)
+        btnAddStock.Location = New Point(136, 153)
         btnAddStock.Name = "btnAddStock"
         btnAddStock.Size = New Size(75, 23)
         btnAddStock.TabIndex = 0
@@ -41,7 +41,7 @@ Partial Class AddStockForm
         ' 
         ' txtQuantity
         ' 
-        txtQuantity.Location = New Point(146, 156)
+        txtQuantity.Location = New Point(136, 109)
         txtQuantity.Name = "txtQuantity"
         txtQuantity.Size = New Size(85, 23)
         txtQuantity.TabIndex = 1
@@ -49,8 +49,7 @@ Partial Class AddStockForm
         ' cmbFood
         ' 
         cmbFood.FormattingEnabled = True
-        cmbFood.Items.AddRange(New Object() {"Burger", "Pizza", "Tacos", "Hotdog"})
-        cmbFood.Location = New Point(146, 118)
+        cmbFood.Location = New Point(136, 71)
         cmbFood.Name = "cmbFood"
         cmbFood.Size = New Size(132, 23)
         cmbFood.TabIndex = 2
@@ -58,7 +57,7 @@ Partial Class AddStockForm
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(63, 121)
+        Label1.Location = New Point(53, 74)
         Label1.Name = "Label1"
         Label1.Size = New Size(71, 15)
         Label1.TabIndex = 3
@@ -67,7 +66,7 @@ Partial Class AddStockForm
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(63, 159)
+        Label2.Location = New Point(53, 112)
         Label2.Name = "Label2"
         Label2.Size = New Size(56, 15)
         Label2.TabIndex = 4
@@ -86,7 +85,7 @@ Partial Class AddStockForm
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(484, 450)
+        ClientSize = New Size(338, 293)
         Controls.Add(btnBack)
         Controls.Add(Label2)
         Controls.Add(Label1)

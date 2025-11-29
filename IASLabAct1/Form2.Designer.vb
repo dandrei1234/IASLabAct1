@@ -22,10 +22,16 @@ Partial Class Form2
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        btnExit = New Button()
+        btnLogout = New Button()
         MenuStrip1 = New MenuStrip()
         SettingToolStripMenuItem = New ToolStripMenuItem()
         UserProfileToolStripMenuItem = New ToolStripMenuItem()
+        InventoryToolStripMenuItem = New ToolStripMenuItem()
+        ToolStripSeparator1 = New ToolStripSeparator()
+        BackupToolStripMenuItem = New ToolStripMenuItem()
+        RestoreToolStripMenuItem = New ToolStripMenuItem()
+        ToolStripSeparator2 = New ToolStripSeparator()
+        AuditLogsToolStripMenuItem = New ToolStripMenuItem()
         MySqlCommand1 = New MySql.Data.MySqlClient.MySqlCommand()
         dgvacc = New DataGridView()
         btnUpdate = New Button()
@@ -43,19 +49,18 @@ Partial Class Form2
         Label5 = New Label()
         txtPassword = New TextBox()
         btnX = New Button()
-        InventoryToolStripMenuItem = New ToolStripMenuItem()
         MenuStrip1.SuspendLayout()
         CType(dgvacc, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
-        ' btnExit
+        ' btnLogout
         ' 
-        btnExit.Location = New Point(661, 27)
-        btnExit.Name = "btnExit"
-        btnExit.Size = New Size(75, 23)
-        btnExit.TabIndex = 0
-        btnExit.Text = "Exit"
-        btnExit.UseVisualStyleBackColor = True
+        btnLogout.Location = New Point(661, 27)
+        btnLogout.Name = "btnLogout"
+        btnLogout.Size = New Size(75, 23)
+        btnLogout.TabIndex = 0
+        btnLogout.Text = "Logout"
+        btnLogout.UseVisualStyleBackColor = True
         ' 
         ' MenuStrip1
         ' 
@@ -68,7 +73,7 @@ Partial Class Form2
         ' 
         ' SettingToolStripMenuItem
         ' 
-        SettingToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {UserProfileToolStripMenuItem, InventoryToolStripMenuItem})
+        SettingToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {UserProfileToolStripMenuItem, InventoryToolStripMenuItem, ToolStripSeparator1, BackupToolStripMenuItem, RestoreToolStripMenuItem, ToolStripSeparator2, AuditLogsToolStripMenuItem})
         SettingToolStripMenuItem.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         SettingToolStripMenuItem.Name = "SettingToolStripMenuItem"
         SettingToolStripMenuItem.Size = New Size(65, 20)
@@ -79,6 +84,40 @@ Partial Class Form2
         UserProfileToolStripMenuItem.Name = "UserProfileToolStripMenuItem"
         UserProfileToolStripMenuItem.Size = New Size(180, 22)
         UserProfileToolStripMenuItem.Text = "Add Profile"
+        ' 
+        ' InventoryToolStripMenuItem
+        ' 
+        InventoryToolStripMenuItem.Name = "InventoryToolStripMenuItem"
+        InventoryToolStripMenuItem.Size = New Size(180, 22)
+        InventoryToolStripMenuItem.Text = "Inventory"
+        ' 
+        ' ToolStripSeparator1
+        ' 
+        ToolStripSeparator1.Name = "ToolStripSeparator1"
+        ToolStripSeparator1.Size = New Size(177, 6)
+        ' 
+        ' BackupToolStripMenuItem
+        ' 
+        BackupToolStripMenuItem.Name = "BackupToolStripMenuItem"
+        BackupToolStripMenuItem.Size = New Size(180, 22)
+        BackupToolStripMenuItem.Text = "Backup"
+        ' 
+        ' RestoreToolStripMenuItem
+        ' 
+        RestoreToolStripMenuItem.Name = "RestoreToolStripMenuItem"
+        RestoreToolStripMenuItem.Size = New Size(180, 22)
+        RestoreToolStripMenuItem.Text = "Restore"
+        ' 
+        ' ToolStripSeparator2
+        ' 
+        ToolStripSeparator2.Name = "ToolStripSeparator2"
+        ToolStripSeparator2.Size = New Size(177, 6)
+        ' 
+        ' AuditLogsToolStripMenuItem
+        ' 
+        AuditLogsToolStripMenuItem.Name = "AuditLogsToolStripMenuItem"
+        AuditLogsToolStripMenuItem.Size = New Size(180, 22)
+        AuditLogsToolStripMenuItem.Text = "Audit Logs"
         ' 
         ' MySqlCommand1
         ' 
@@ -97,7 +136,7 @@ Partial Class Form2
         ' 
         ' btnUpdate
         ' 
-        btnUpdate.Location = New Point(75, 369)
+        btnUpdate.Location = New Point(153, 368)
         btnUpdate.Name = "btnUpdate"
         btnUpdate.Size = New Size(78, 23)
         btnUpdate.TabIndex = 3
@@ -106,7 +145,7 @@ Partial Class Form2
         ' 
         ' btnView
         ' 
-        btnView.Location = New Point(182, 369)
+        btnView.Location = New Point(260, 368)
         btnView.Name = "btnView"
         btnView.Size = New Size(78, 23)
         btnView.TabIndex = 4
@@ -115,7 +154,7 @@ Partial Class Form2
         ' 
         ' btnDelete
         ' 
-        btnDelete.Location = New Point(287, 369)
+        btnDelete.Location = New Point(365, 368)
         btnDelete.Name = "btnDelete"
         btnDelete.Size = New Size(78, 23)
         btnDelete.TabIndex = 5
@@ -224,12 +263,6 @@ Partial Class Form2
         btnX.Text = "X"
         btnX.UseVisualStyleBackColor = True
         ' 
-        ' InventoryToolStripMenuItem
-        ' 
-        InventoryToolStripMenuItem.Name = "InventoryToolStripMenuItem"
-        InventoryToolStripMenuItem.Size = New Size(180, 22)
-        InventoryToolStripMenuItem.Text = "Inventory"
-        ' 
         ' Form2
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -251,11 +284,11 @@ Partial Class Form2
         Controls.Add(btnView)
         Controls.Add(btnUpdate)
         Controls.Add(dgvacc)
-        Controls.Add(btnExit)
+        Controls.Add(btnLogout)
         Controls.Add(MenuStrip1)
         MainMenuStrip = MenuStrip1
         Name = "Form2"
-        Text = "Form2"
+        Text = " "
         MenuStrip1.ResumeLayout(False)
         MenuStrip1.PerformLayout()
         CType(dgvacc, ComponentModel.ISupportInitialize).EndInit()
@@ -263,7 +296,7 @@ Partial Class Form2
         PerformLayout()
     End Sub
 
-    Friend WithEvents btnExit As Button
+    Friend WithEvents btnLogout As Button
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents SettingToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents UserProfileToolStripMenuItem As ToolStripMenuItem
@@ -285,4 +318,9 @@ Partial Class Form2
     Friend WithEvents txtPassword As TextBox
     Friend WithEvents btnX As Button
     Friend WithEvents InventoryToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents BackupToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents RestoreToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
+    Friend WithEvents AuditLogsToolStripMenuItem As ToolStripMenuItem
 End Class

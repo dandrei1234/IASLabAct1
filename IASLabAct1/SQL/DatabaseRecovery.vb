@@ -36,12 +36,12 @@ Public Class DatabaseRecovery
                             cmd.ExecuteNonQuery()
                         Catch ex As Exception
                             MessageBox.Show("Error running command: " & cleanCmd & vbCrLf & ex.Message, "Database Restore Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                            AuditLogging.AddEntry(0, "user", "staff", "Database restore error", ex.Message)
+                            AuditLogging.AddEntry("Database restore error", ex.Message)
                         End Try
                     End Using
                 End If
             Next
-            AuditLogging.AddEntry(0, "user", "staff", "Database restored", "")
+            AuditLogging.AddEntry("Database restored", "")
             MessageBox.Show("Database was restored successfully. ", "Database Restore Successful")
 
             conn.Close()
@@ -103,11 +103,11 @@ Public Class DatabaseRecovery
 
             p.Start()
             p.WaitForExit()
-            AuditLogging.AddEntry(0, "user", "staff", "Database backed up", "")
+            AuditLogging.AddEntry("Database backed up", "")
             MessageBox.Show("Database was succesfully backuped. Saved to: " & backupFile, "Database Backup Successful")
         Catch ex As Exception
             MessageBox.Show(ex.Message, "Database Backup Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            AuditLogging.AddEntry(0, "user", "staff", "Database backed up error", ex.Message)
+            AuditLogging.AddEntry("Database backed up error", ex.Message)
         End Try
     End Sub
 End Class

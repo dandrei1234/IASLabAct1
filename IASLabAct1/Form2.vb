@@ -17,6 +17,8 @@ Public Class Form2
     End Function
     Dim conn As New MySqlConnection("server=localhost; userid=root; password=root; database=user_authentication_db;")
     Private Sub Form2_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        UserActivityMonitor.SetupInactivityTracking(Me)
+
         Dim query As String = "SELECT id, username, password, status, role FROM users_tbl"
 
         Try
@@ -32,10 +34,7 @@ Public Class Form2
             MsgBox(ex.Message)
         End Try
     End Sub
-    Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
-        Me.Hide()
-        Form1.Show()
-    End Sub
+
 
     Private Sub UserProfileToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UserProfileToolStripMenuItem.Click
         Me.Close()
@@ -43,27 +42,33 @@ Public Class Form2
     End Sub
 
     Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
-        Dim query As String = "UPDATE users_tbl SET username=@username, password=@password, status=@status, role=@role WHERE id=@id"
-        Try
-            conn.Open()
-            Using cmd As New MySqlCommand(query, conn)
-                cmd.Parameters.AddWithValue("@username", txtUsername.Text)
-                If txtPassword.Text.Length > "20" Then
-                    cmd.Parameters.AddWithValue("@password", txtPassword.Text)
-                ElseIf txtPassword.Text.Length <= "20" Then
-                    cmd.Parameters.AddWithValue("@password", ComputeSHA256Hash(txtPassword.Text))
-                End If
-                cmd.Parameters.AddWithValue("@status", cbStatus.Text)
-                cmd.Parameters.AddWithValue("@role", cbRole.Text)
-                cmd.Parameters.AddWithValue("@id", Convert.ToInt32(txtID.Text))
-                cmd.ExecuteNonQuery()
-            End Using
-            MessageBox.Show("User updated successfully.")
-        Catch ex As Exception
-            MessageBox.Show("Error: " & ex.Message)
-        Finally
-            conn.Close()
-        End Try
+        UpdateFields(dgvacc.CurrentRow.Index)
+        Form4.ToggleUserUpdateUI(Integer.Parse(txtID.Text), txtUsername.Text, cbStatus.Text, cbRole.Text)
+        Form4.Show()
+
+
+        'Dim query As String = "UPDATE users_tbl SET username=@username, password=@password, status=@status, role=@role WHERE id=@id"
+        'Try
+        '    conn.Open()
+        '    Using cmd As New MySqlCommand(query, conn)
+        '        cmd.Parameters.AddWithValue("@username", txtUsername.Text)
+        '        If txtPassword.Text.Length > "20" Then
+        '            cmd.Parameters.AddWithValue("@password", txtPassword.Text)
+        '        ElseIf txtPassword.Text.Length <= "20" Then
+        '            cmd.Parameters.AddWithValue("@password", ComputeSHA256Hash(txtPassword.Text))
+        '        End If
+        '        cmd.Parameters.AddWithValue("@status", cbStatus.Text)
+        '        cmd.Parameters.AddWithValue("@role", cbRole.Text)
+        '        cmd.Parameters.AddWithValue("@id", Convert.ToInt32(txtID.Text))
+        '        cmd.ExecuteNonQuery()
+
+        '    End Using
+        '    MessageBox.Show("User updated successfully.")
+        'Catch ex As Exception
+        '    MessageBox.Show("Error: " & ex.Message)
+        'Finally
+        '    conn.Close()
+        'End Try
     End Sub
 
     Private Sub btnView_Click(sender As Object, e As EventArgs) Handles btnView.Click
@@ -89,14 +94,17 @@ Public Class Form2
                 cmd.Parameters.AddWithValue("@id", Convert.ToInt32(txtID.Text))
                 Dim rowsAffected = cmd.ExecuteNonQuery
                 If rowsAffected > 0 Then
+                    AuditLogging.AddEntry("Deleted User", "username='" & txtUsername.Text & ", status='" & cbStatus.Text & ", role='" & cbRole.Text)
                     MessageBox.Show("User removed successfully.")
                 Else
+                    AuditLogging.AddEntry("Attempted to delete a non-existent user", "id=" & txtID.Text)
                     MessageBox.Show("No user found with the specified ID.")
                 End If
             End Using
             txtID.Clear()
             cbStatus.Text = ""
         Catch ex As Exception
+            AuditLogging.AddEntry("Error in attempting to delete user", "id=" & txtID.Text)
             MessageBox.Show("Error: " & ex.Message)
         Finally
             conn.Close()
@@ -114,6 +122,7 @@ Public Class Form2
                     Dim table As New DataTable()
                     adapter.Fill(table)
                     dgvacc.DataSource = table
+                    AuditLogging.AddEntry("Search", "username='" & txtUsername.Text & "'")
                 End Using
             Catch ex As Exception
                 MsgBox(ex.Message)
@@ -123,8 +132,21 @@ Public Class Form2
     End Sub
 
     Private Sub dgvacc_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvacc.CellContentClick
-        If e.RowIndex >= 0 Then
-            Dim row As DataGridViewRow = dgvacc.Rows(e.RowIndex)
+        'If e.RowIndex >= 0 Then
+        '    Dim row As DataGridViewRow = dgvacc.Rows(e.RowIndex)
+        '    txtID.Text = row.Cells("id").Value.ToString()
+        '    txtUsername.Text = row.Cells("username").Value.ToString()
+        '    txtPassword.Text = row.Cells("password").Value.ToString()
+        '    cbStatus.Text = row.Cells("status").Value.ToString()
+        '    cbRole.Text = row.Cells("role").Value.ToString()
+        'End If
+        UpdateFields(e.RowIndex)
+    End Sub
+
+
+    Private Sub UpdateFields(index As Integer)
+        If index >= 0 Then
+            Dim row As DataGridViewRow = dgvacc.Rows(index)
             txtID.Text = row.Cells("id").Value.ToString()
             txtUsername.Text = row.Cells("username").Value.ToString()
             txtPassword.Text = row.Cells("password").Value.ToString()
@@ -132,6 +154,7 @@ Public Class Form2
             cbRole.Text = row.Cells("role").Value.ToString()
         End If
     End Sub
+
     Private Sub refresh()
         Dim query As String = "SELECT id, username, password, role, status FROM `user_authentication_db`.`users_tbl`"
         Try
@@ -155,5 +178,21 @@ Public Class Form2
     Private Sub InventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InventoryToolStripMenuItem.Click
         Me.Close()
         Inventory_Form.Show()
+    End Sub
+
+    Private Sub BackupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackupToolStripMenuItem.Click
+        DatabaseRecovery.BackupDatabase()
+    End Sub
+
+    Private Sub RestoreToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RestoreToolStripMenuItem.Click
+        DatabaseRecovery.RestoreDatabase()
+    End Sub
+
+    Private Sub AuditLogsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AuditLogsToolStripMenuItem.Click
+        AuditLogs.Show()
+    End Sub
+
+    Private Sub btnLogout_Click(sender As Object, e As EventArgs) Handles btnLogout.Click
+        Logout(Me)
     End Sub
 End Class

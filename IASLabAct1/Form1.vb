@@ -4,6 +4,7 @@ Imports System.Security.Cryptography
 Imports System.Text
 
 Public Class Form1
+
     Dim conn As New MySqlConnection("server=localhost; userid=root; password=root; database=user_authentication_db;")
     Public Function ComputeSHA256Hash(ByVal rawData As String) As String
         Using sha256Hash As SHA256 = SHA256.Create()
@@ -16,6 +17,9 @@ Public Class Form1
         End Using
     End Function
     Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
+
+        LogoutTimeTestForm.Show()
+
         Dim query As String = "SELECT * FROM users_tbl WHERE username=@username AND password=@password"
         Try
             conn.Open()
@@ -27,25 +31,40 @@ Public Class Form1
 
             If reader.HasRows Then
                 reader.Read()
+                Dim Id = reader.GetInt32("id")
+                Dim username = reader.GetString("username")
                 Dim Status = reader.GetString("status")
                 Dim role = reader.GetString("role")
-                If Status = "authorized" And role = "staff" Then
+                SetLoggedUser(Id, username, role, Status)
+
+                If Status = "authorized" Then
+                    AuditLogging.AddEntry(Id, username, role, "User logged in", "Authorized Account")
+                    Select Case role
+                        Case "admin"
+                            MessageBox.Show("Login successful.", "Access Granted", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            Form2.Show()
+                            Me.Hide()
+                        Case "staff"
+                            MessageBox.Show("Login successful. Your account is Authorized.", "Access Granted", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            Inventory_Form.Show()
+                            Me.Hide()
+                    End Select
+                    txtUsername.Text = ""
+                    txtPassword.Text = ""
+                ElseIf Status = "pending" Then
                     Form5.Show()
+                    AuditLogging.AddEntry(Id, username, role, "User logged in", "Pending Account")
                     Me.Hide()
-                ElseIf Status = "authorized" And role = "admin" Then
-                    MessageBox.Show("Login successful. Your account is Authorized.", "Access Granted", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Form2.Show()
-                    Me.Hide()
-                ElseIf Status = "pending" And (role = "staff" Or role = "admin") Then
-                    Form5.Show()
-                    Me.Hide()
-                ElseIf Status = "unauthorized" And (role = "staff" Or role = "admin") Then
+                ElseIf Status = "unauthorized" Then
+                    AuditLogging.AddEntry(Id, username, role, "User logged in", "Unauthorized Account")
                     MessageBox.Show("Your account is Denied. Please contact the administrator.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 End If
                 LoggedStatus = 0
             Else
                 LoggedStatus += 1
+                AuditLogging.AddEntry(0, "", "staff", "Failed logged in attempt", "Attempted username: " & txtUsername.Text)
                 If LoggedStatus >= 3 Then
+                    AuditLogging.AddEntry(0, "", "staff", "Failed logged in attempt exceeded", "Attempted username: " & txtUsername.Text)
                     MessageBox.Show("Too many incorrect attempts. The app will now close.", "Un-Authorize User!", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                     Application.Exit()
                 Else
@@ -97,5 +116,6 @@ Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         txtPassword.UseSystemPasswordChar = True
         cbpass.Checked = False
+        StopTimer()
     End Sub
 End Class

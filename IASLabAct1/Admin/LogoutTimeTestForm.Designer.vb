@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class BackupRestoreTestForm
+Partial Class LogoutTimeTestForm
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,40 +22,29 @@ Partial Class BackupRestoreTestForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        btnBackup = New Button()
-        btnRestore = New Button()
+        lbl = New Label()
         SuspendLayout()
         ' 
-        ' btnBackup
+        ' lbl
         ' 
-        btnBackup.Location = New Point(442, 177)
-        btnBackup.Name = "btnBackup"
-        btnBackup.Size = New Size(75, 23)
-        btnBackup.TabIndex = 0
-        btnBackup.Text = "Backup"
-        btnBackup.UseVisualStyleBackColor = True
+        lbl.AutoSize = True
+        lbl.Location = New Point(12, 9)
+        lbl.Name = "lbl"
+        lbl.Size = New Size(13, 15)
+        lbl.TabIndex = 0
+        lbl.Text = "4"
         ' 
-        ' btnRestore
-        ' 
-        btnRestore.Location = New Point(442, 232)
-        btnRestore.Name = "btnRestore"
-        btnRestore.Size = New Size(75, 23)
-        btnRestore.TabIndex = 0
-        btnRestore.Text = "Restore"
-        btnRestore.UseVisualStyleBackColor = True
-        ' 
-        ' BackupRestoreTestForm
+        ' LogoutTimeTestForm
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 450)
-        Controls.Add(btnRestore)
-        Controls.Add(btnBackup)
-        Name = "BackupRestoreTestForm"
-        Text = "BackupRestoreTestForm"
+        ClientSize = New Size(446, 33)
+        Controls.Add(lbl)
+        Name = "LogoutTimeTestForm"
+        Text = "LogoutTimeTestForm"
         ResumeLayout(False)
+        PerformLayout()
     End Sub
 
-    Friend WithEvents btnBackup As Button
-    Friend WithEvents btnRestore As Button
+    Friend WithEvents lbl As Label
 End Class

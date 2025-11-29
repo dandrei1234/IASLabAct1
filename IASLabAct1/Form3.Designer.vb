@@ -24,7 +24,7 @@ Partial Class Form3
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form3))
         Label1 = New Label()
-        Label3 = New Label()
+        lblTitle = New Label()
         txtUsername = New TextBox()
         txtPassword = New TextBox()
         Label4 = New Label()
@@ -47,17 +47,17 @@ Partial Class Form3
         Label1.TabIndex = 0
         Label1.Text = "Username:"
         ' 
-        ' Label3
+        ' lblTitle
         ' 
-        Label3.AutoSize = True
-        Label3.BackColor = Color.Transparent
-        Label3.Font = New Font("Tahoma", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label3.ForeColor = SystemColors.Control
-        Label3.Location = New Point(138, 27)
-        Label3.Name = "Label3"
-        Label3.Size = New Size(159, 25)
-        Label3.TabIndex = 2
-        Label3.Text = "Register Form"
+        lblTitle.AutoSize = True
+        lblTitle.BackColor = Color.Transparent
+        lblTitle.Font = New Font("Tahoma", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblTitle.ForeColor = SystemColors.Control
+        lblTitle.Location = New Point(138, 27)
+        lblTitle.Name = "lblTitle"
+        lblTitle.Size = New Size(159, 25)
+        lblTitle.TabIndex = 2
+        lblTitle.Text = "Register Form"
         ' 
         ' txtUsername
         ' 
@@ -149,16 +149,17 @@ Partial Class Form3
         Controls.Add(Label4)
         Controls.Add(txtPassword)
         Controls.Add(txtUsername)
-        Controls.Add(Label3)
+        Controls.Add(lblTitle)
         Controls.Add(Label1)
         Name = "Form3"
+        StartPosition = FormStartPosition.CenterScreen
         Text = "Form3"
         ResumeLayout(False)
         PerformLayout()
     End Sub
 
     Friend WithEvents Label1 As Label
-    Friend WithEvents Label3 As Label
+    Friend WithEvents lblTitle As Label
     Friend WithEvents txtUsername As TextBox
     Friend WithEvents txtPassword As TextBox
     Friend WithEvents Label4 As Label

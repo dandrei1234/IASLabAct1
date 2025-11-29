@@ -20,6 +20,7 @@ Public Class Form3
             Return builder.ToString()
         End Using
     End Function
+
     Private Sub btnRegister_Click(sender As Object, e As EventArgs) Handles btnRegister.Click
 
         If txtUsername.Text = "" Or txtPassword.Text = "" Or txtConfirmPassword.Text = "" Then
@@ -69,6 +70,7 @@ Public Class Form3
                         cmd.Parameters.AddWithValue("@username", txtUsername.Text)
                         cmd.Parameters.AddWithValue("@password", hashedPassword)
                         cmd.ExecuteNonQuery()
+                        AuditLogging.AddEntry(0, txtUsername.Text, "staff", "Successful registered user account", "Username: " & txtUsername.Text)
                         MessageBox.Show("User registered successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                         Me.Close()
                         Form1.Show()
@@ -78,6 +80,7 @@ Public Class Form3
         Catch ex As MySqlException
             If ex.Number = 1062 Then
                 MessageBox.Show("Username already exists.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                AuditLogging.AddEntry(0, txtUsername.Text, "staff", "Attempted to sign up with pre-existing username", "Username: " & txtUsername.Text)
             Else
                 MsgBox(ex.Message)
             End If

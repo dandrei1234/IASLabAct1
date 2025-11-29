@@ -3,4 +3,8 @@
         Form1.Show()
         Me.Hide()
     End Sub
+
+    Private Sub Form5_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        UserActivityMonitor.SetupInactivityTracking(Me)
+    End Sub
 End Class

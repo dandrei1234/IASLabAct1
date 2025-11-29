@@ -32,4 +32,13 @@ Public Class AuditLogging
             MsgBox("Audit Error: " & ex.Message)
         End Try
     End Sub
+
+
+    Public Shared Sub AddEntry(actionType As String, details As String)
+        If LoggedRole = "" Then
+            AddEntry(LoggedUserId, LoggedUsername, "staff", actionType, details)
+        Else
+            AddEntry(LoggedUserId, LoggedUsername, LoggedRole, actionType, details)
+        End If
+    End Sub
 End Class

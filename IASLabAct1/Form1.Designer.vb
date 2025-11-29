@@ -86,6 +86,7 @@ Partial Class Form1
         txtUsername.Name = "txtUsername"
         txtUsername.Size = New Size(163, 23)
         txtUsername.TabIndex = 0
+        txtUsername.Text = "admin"
         ' 
         ' txtPassword
         ' 
@@ -93,6 +94,7 @@ Partial Class Form1
         txtPassword.Name = "txtPassword"
         txtPassword.Size = New Size(163, 23)
         txtPassword.TabIndex = 1
+        txtPassword.Text = "Admin.1234"
         ' 
         ' MySqlCommand1
         ' 
@@ -174,6 +176,7 @@ Partial Class Form1
         Controls.Add(btnExit)
         Controls.Add(btnLogin)
         Name = "Form1"
+        StartPosition = FormStartPosition.CenterScreen
         Text = "Form1"
         ResumeLayout(False)
         PerformLayout()
