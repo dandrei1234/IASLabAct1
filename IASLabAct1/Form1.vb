@@ -86,7 +86,8 @@ Public Class Form1
         End If
     End Sub
     Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
-        Me.Close()
+        BackupRestoreTestForm.Show()
+        'Me.Close()
     End Sub
 
     Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click
