@@ -156,4 +156,12 @@ Public Class Form2
         Me.Close()
         Inventory_Form.Show()
     End Sub
+
+    Private Sub BackupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackupToolStripMenuItem.Click
+        DatabaseRecovery.BackupDatabase()
+    End Sub
+
+    Private Sub RestoreToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RestoreToolStripMenuItem.Click
+        DatabaseRecovery.RestoreDatabase()
+    End Sub
 End Class

@@ -26,6 +26,10 @@ Partial Class Form2
         MenuStrip1 = New MenuStrip()
         SettingToolStripMenuItem = New ToolStripMenuItem()
         UserProfileToolStripMenuItem = New ToolStripMenuItem()
+        InventoryToolStripMenuItem = New ToolStripMenuItem()
+        ToolStripSeparator1 = New ToolStripSeparator()
+        BackupToolStripMenuItem = New ToolStripMenuItem()
+        RestoreToolStripMenuItem = New ToolStripMenuItem()
         MySqlCommand1 = New MySql.Data.MySqlClient.MySqlCommand()
         dgvacc = New DataGridView()
         btnUpdate = New Button()
@@ -43,7 +47,6 @@ Partial Class Form2
         Label5 = New Label()
         txtPassword = New TextBox()
         btnX = New Button()
-        InventoryToolStripMenuItem = New ToolStripMenuItem()
         MenuStrip1.SuspendLayout()
         CType(dgvacc, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -68,7 +71,7 @@ Partial Class Form2
         ' 
         ' SettingToolStripMenuItem
         ' 
-        SettingToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {UserProfileToolStripMenuItem, InventoryToolStripMenuItem})
+        SettingToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {UserProfileToolStripMenuItem, InventoryToolStripMenuItem, ToolStripSeparator1, BackupToolStripMenuItem, RestoreToolStripMenuItem})
         SettingToolStripMenuItem.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         SettingToolStripMenuItem.Name = "SettingToolStripMenuItem"
         SettingToolStripMenuItem.Size = New Size(65, 20)
@@ -79,6 +82,29 @@ Partial Class Form2
         UserProfileToolStripMenuItem.Name = "UserProfileToolStripMenuItem"
         UserProfileToolStripMenuItem.Size = New Size(180, 22)
         UserProfileToolStripMenuItem.Text = "Add Profile"
+        ' 
+        ' InventoryToolStripMenuItem
+        ' 
+        InventoryToolStripMenuItem.Name = "InventoryToolStripMenuItem"
+        InventoryToolStripMenuItem.Size = New Size(180, 22)
+        InventoryToolStripMenuItem.Text = "Inventory"
+        ' 
+        ' ToolStripSeparator1
+        ' 
+        ToolStripSeparator1.Name = "ToolStripSeparator1"
+        ToolStripSeparator1.Size = New Size(177, 6)
+        ' 
+        ' BackupToolStripMenuItem
+        ' 
+        BackupToolStripMenuItem.Name = "BackupToolStripMenuItem"
+        BackupToolStripMenuItem.Size = New Size(180, 22)
+        BackupToolStripMenuItem.Text = "Backup"
+        ' 
+        ' RestoreToolStripMenuItem
+        ' 
+        RestoreToolStripMenuItem.Name = "RestoreToolStripMenuItem"
+        RestoreToolStripMenuItem.Size = New Size(180, 22)
+        RestoreToolStripMenuItem.Text = "Restore"
         ' 
         ' MySqlCommand1
         ' 
@@ -224,12 +250,6 @@ Partial Class Form2
         btnX.Text = "X"
         btnX.UseVisualStyleBackColor = True
         ' 
-        ' InventoryToolStripMenuItem
-        ' 
-        InventoryToolStripMenuItem.Name = "InventoryToolStripMenuItem"
-        InventoryToolStripMenuItem.Size = New Size(180, 22)
-        InventoryToolStripMenuItem.Text = "Inventory"
-        ' 
         ' Form2
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -285,4 +305,7 @@ Partial Class Form2
     Friend WithEvents txtPassword As TextBox
     Friend WithEvents btnX As Button
     Friend WithEvents InventoryToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents BackupToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents RestoreToolStripMenuItem As ToolStripMenuItem
 End Class
