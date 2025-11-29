@@ -1,7 +1,6 @@
 ﻿Imports MySql.Data.MySqlClient
 
 Public Class DatabaseRecovery
-
     Private Shared Function GetMysqlsdumpLocation() As String
         Return "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysqldump.exe"
     End Function
@@ -23,6 +22,7 @@ Public Class DatabaseRecovery
 
         Dim commands() As String = script.Split(New String() {";"}, StringSplitOptions.RemoveEmptyEntries)
 
+        DoesDatabaseExists()
         Dim connString As String = "server=localhost; userid=root; password=root; database=" & GetDatabaseName() & ";"
         Using conn As New MySqlConnection(connString)
             conn.Open()
@@ -35,20 +35,53 @@ Public Class DatabaseRecovery
                         Try
                             cmd.ExecuteNonQuery()
                         Catch ex As Exception
-                            MessageBox.Show("Error running command: " & cleanCmd & vbCrLf & ex.Message)
+                            MessageBox.Show("Error running command: " & cleanCmd & vbCrLf & ex.Message, "Database Restore Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                            AuditLogging.AddEntry(0, "user", "staff", "Database restore error", ex.Message)
                         End Try
                     End Using
                 End If
             Next
+            AuditLogging.AddEntry(0, "user", "staff", "Database restored", "")
+            MessageBox.Show("Database was restored successfully. ", "Database Restore Successful")
 
             conn.Close()
         End Using
+    End Sub
 
-        MessageBox.Show("Database restored successfully from: " & sqlFile)
+    Public Shared Sub DoesDatabaseExists()
+        Dim connString As String = "server=localhost; userid=root; password=root;"
+        Dim databaseExists As Boolean = False
+
+        Using conn As New MySqlConnection(connString)
+            conn.Open()
+
+            Using cmd As New MySqlCommand("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '" & GetDatabaseName() & "';", conn)
+                Dim reader As MySqlDataReader = cmd.ExecuteReader()
+                If reader.HasRows Then
+                    databaseExists = True
+                End If
+            End Using
+            conn.Close()
+        End Using
+
+        If databaseExists = False Then
+            Using conn As New MySqlConnection(connString)
+                conn.Open()
+
+                Using cmd2 As New MySqlCommand($"CREATE DATABASE {GetDatabaseName()};", conn)
+                    Try
+                        cmd2.ExecuteNonQuery()
+                    Catch ex As Exception
+                        MessageBox.Show("Error creating new database. " & ex.Message, "Database Restore Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    End Try
+                End Using
+
+                conn.Close()
+            End Using
+        End If
     End Sub
 
     Public Shared Sub BackupDatabase()
-
         Dim sfd As New SaveFileDialog()
         sfd.Filter = "SQL Files (*.sql)|*.sql"
         sfd.Title = "Save MySQL Backup"
@@ -61,7 +94,6 @@ Public Class DatabaseRecovery
         Dim arguments As String =
         "--user=root --password=root --databases " & GetDatabaseName() & " --result-file=""" & backupFile & """"
 
-        MessageBox.Show("Backup saved to: " & backupFile)
         Try
             Dim p As New Process()
             p.StartInfo.FileName = GetMysqlsdumpLocation()
@@ -71,8 +103,11 @@ Public Class DatabaseRecovery
 
             p.Start()
             p.WaitForExit()
+            AuditLogging.AddEntry(0, "user", "staff", "Database backed up", "")
+            MessageBox.Show("Database was succesfully backuped. Saved to: " & backupFile, "Database Backup Successful")
         Catch ex As Exception
-            MessageBox.Show(ex.Message)
+            MessageBox.Show(ex.Message, "Database Backup Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            AuditLogging.AddEntry(0, "user", "staff", "Database backed up error", ex.Message)
         End Try
     End Sub
 End Class

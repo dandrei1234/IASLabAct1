@@ -2,7 +2,7 @@
 Imports MySql.Data.MySqlClient
 Imports System.Security.Cryptography
 Imports System.Text
-Imports Windows.Win32.System
+
 Public Class Form1
     Dim conn As New MySqlConnection("server=localhost; userid=root; password=root; database=user_authentication_db;")
     Public Function ComputeSHA256Hash(ByVal rawData As String) As String
@@ -86,8 +86,7 @@ Public Class Form1
         End If
     End Sub
     Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
-        BackupRestoreTestForm.Show()
-        'Me.Close()
+        Me.Close()
     End Sub
 
     Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click

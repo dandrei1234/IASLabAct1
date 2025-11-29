@@ -9,6 +9,7 @@ Public Class Inventory_Form
     Public Sub dgvProducts_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProducts.CellContentClick
         LoadProducts()
     End Sub
+
     Public Sub LoadProducts()
         Try
             Using conn As New MySqlConnection("server=localhost;userid=root;password=root;database=user_authentication_db;")
