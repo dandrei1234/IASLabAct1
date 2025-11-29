@@ -2,6 +2,7 @@
 
 Public Class AuditLogs
     Private Sub AuditLogs_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        UserActivityMonitor.ResetTimer()
         LoadAuditLogs()
         UserActivityMonitor.SetupInactivityTracking(Me)
     End Sub
