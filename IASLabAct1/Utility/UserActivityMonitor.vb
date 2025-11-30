@@ -8,10 +8,9 @@
 
 
     Public inactivityTimer As New Timer()
-    'Public inactivityLimit As Integer = 5 * 60 ' 5 minutes in seconds
-    Public inactivityLimit As Integer = 7
+    Public inactivityLimit As Integer = 15
     Public remainingTime As Integer = inactivityLimit
-    Public currentLabel As Label = LogoutTimeTestForm.lbl ' Label on form to show countdown
+    Public currentLabel As Label = LogoutTimeTestForm.lbl
 
     Public Sub SetLoginForm(loginForm As Form1)
         LoginFormSingle = loginForm
@@ -33,10 +32,9 @@
         AuditLogging.AddEntry("Logged out", "")
         ClearUserCredentials()
 
-        'Form1.Show()
         ShowLogin()
         form.Close()
-    End Sub    ' Call this in each form's Load
+    End Sub
 
 
     Private Sub ClearUserCredentials()
@@ -47,15 +45,11 @@
     End Sub
 
     Public Sub SetupInactivityTracking(currentForm As Form)
-        'currentLabel = displayLabel
         remainingTime = inactivityLimit
-
-        ' Configure timer to tick every second
-        inactivityTimer.Interval = 1000 ' 1 second
+        inactivityTimer.Interval = 1000
         AddHandler inactivityTimer.Tick, AddressOf TimerTick
         inactivityTimer.Start()
 
-        ' Hook form activity
         AddHandler currentForm.MouseMove, Sub() ResetTimer()
         AddHandler currentForm.KeyPress, Sub() ResetTimer()
 
@@ -72,20 +66,17 @@
                 AddHandler tb.MouseDown, Sub() ResetTimer()
 
             End If
-
-            ' Important → Recursively search inside GroupBoxes, Panels, TabPages, etc.
             If ctrl.HasChildren Then
                 AddHandlerToTextboxes(ctrl)
             End If
         Next
     End Sub
-    ' Reset timer on activity
+
     Public Sub ResetTimer()
         remainingTime = inactivityLimit
         UpdateLabel()
     End Sub
 
-    ' Called every second
     Private Sub TimerTick(sender As Object, e As EventArgs)
         remainingTime -= 1
         UpdateLabel()
@@ -113,13 +104,7 @@
         ClearUserCredentials()
 
         StopTimer()
-
-        ' Show login form
-        'Dim loginForm As New Form1()
-        'loginForm.Show()
         ShowLogin()
-
-        ' Copy open forms to an array to avoid modifying collection during iteration
         Dim openForms() As Form = Application.OpenForms.Cast(Of Form)().ToArray()
 
         For Each f As Form In openForms
