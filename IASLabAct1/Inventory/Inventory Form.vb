@@ -148,4 +148,30 @@ Public Class Inventory_Form
         End If
     End Sub
 
+    Private Sub btnView_Click(sender As Object, e As EventArgs) Handles btnView.Click
+        UserActivityMonitor.ResetTimer()
+        Dim connString As String = "server=localhost; user id=root; password=root; database=user_authentication_db;"
+        Dim conn As New MySqlConnection(connString)
+        Dim query As String = "SELECT * FROM products_tbl"
+
+        Try
+            conn.Open()
+
+            Using adapter As New MySqlDataAdapter(query, conn)
+                Dim table As New DataTable()
+                adapter.Fill(table)
+                dgvProducts.DataSource = table
+            End Using
+
+        Catch ex As Exception
+            MessageBox.Show("Error: " & ex.Message)
+
+        Finally
+            If conn IsNot Nothing Then
+                conn.Close()
+            End If
+        End Try
+
+        UserActivityMonitor.ResetTimer()
+    End Sub
 End Class

@@ -31,6 +31,7 @@ Partial Class Inventory_Form
         btnSearch = New Button()
         btnRefresh = New Button()
         btnBack = New Button()
+        btnView = New Button()
         CType(dgvProducts, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -51,7 +52,7 @@ Partial Class Inventory_Form
         ' 
         ' btnAdd
         ' 
-        btnAdd.Location = New Point(166, 371)
+        btnAdd.Location = New Point(104, 371)
         btnAdd.Name = "btnAdd"
         btnAdd.Size = New Size(75, 23)
         btnAdd.TabIndex = 2
@@ -60,7 +61,7 @@ Partial Class Inventory_Form
         ' 
         ' btnDelete
         ' 
-        btnDelete.Location = New Point(419, 371)
+        btnDelete.Location = New Point(374, 371)
         btnDelete.Name = "btnDelete"
         btnDelete.Size = New Size(75, 23)
         btnDelete.TabIndex = 3
@@ -69,7 +70,7 @@ Partial Class Inventory_Form
         ' 
         ' btnUpdate
         ' 
-        btnUpdate.Location = New Point(300, 371)
+        btnUpdate.Location = New Point(245, 371)
         btnUpdate.Name = "btnUpdate"
         btnUpdate.Size = New Size(75, 23)
         btnUpdate.TabIndex = 4
@@ -119,11 +120,21 @@ Partial Class Inventory_Form
         btnBack.Text = "Back"
         btnBack.UseVisualStyleBackColor = True
         ' 
+        ' btnView
+        ' 
+        btnView.Location = New Point(500, 371)
+        btnView.Name = "btnView"
+        btnView.Size = New Size(75, 23)
+        btnView.TabIndex = 10
+        btnView.Text = "View"
+        btnView.UseVisualStyleBackColor = True
+        ' 
         ' Inventory_Form
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(710, 450)
+        Controls.Add(btnView)
         Controls.Add(btnBack)
         Controls.Add(btnRefresh)
         Controls.Add(btnSearch)
@@ -149,4 +160,5 @@ Partial Class Inventory_Form
     Friend WithEvents btnSearch As Button
     Friend WithEvents btnRefresh As Button
     Friend WithEvents btnBack As Button
+    Friend WithEvents btnView As Button
 End Class
