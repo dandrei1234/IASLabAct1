@@ -28,11 +28,13 @@ Partial Class AddStockForm
         Label1 = New Label()
         Label2 = New Label()
         btnBack = New Button()
+        txtPrice = New TextBox()
+        lblprice = New Label()
         SuspendLayout()
         ' 
         ' btnAddStock
         ' 
-        btnAddStock.Location = New Point(136, 153)
+        btnAddStock.Location = New Point(136, 187)
         btnAddStock.Name = "btnAddStock"
         btnAddStock.Size = New Size(75, 23)
         btnAddStock.TabIndex = 0
@@ -41,7 +43,7 @@ Partial Class AddStockForm
         ' 
         ' txtQuantity
         ' 
-        txtQuantity.Location = New Point(136, 109)
+        txtQuantity.Location = New Point(115, 106)
         txtQuantity.Name = "txtQuantity"
         txtQuantity.Size = New Size(85, 23)
         txtQuantity.TabIndex = 1
@@ -49,7 +51,7 @@ Partial Class AddStockForm
         ' cmbFood
         ' 
         cmbFood.FormattingEnabled = True
-        cmbFood.Location = New Point(136, 71)
+        cmbFood.Location = New Point(115, 66)
         cmbFood.Name = "cmbFood"
         cmbFood.Size = New Size(132, 23)
         cmbFood.TabIndex = 2
@@ -57,7 +59,7 @@ Partial Class AddStockForm
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(53, 74)
+        Label1.Location = New Point(32, 69)
         Label1.Name = "Label1"
         Label1.Size = New Size(71, 15)
         Label1.TabIndex = 3
@@ -66,7 +68,7 @@ Partial Class AddStockForm
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(53, 112)
+        Label2.Location = New Point(32, 109)
         Label2.Name = "Label2"
         Label2.Size = New Size(56, 15)
         Label2.TabIndex = 4
@@ -81,11 +83,29 @@ Partial Class AddStockForm
         btnBack.Text = "Back"
         btnBack.UseVisualStyleBackColor = True
         ' 
+        ' txtPrice
+        ' 
+        txtPrice.Location = New Point(115, 145)
+        txtPrice.Name = "txtPrice"
+        txtPrice.Size = New Size(85, 23)
+        txtPrice.TabIndex = 6
+        ' 
+        ' lblprice
+        ' 
+        lblprice.AutoSize = True
+        lblprice.Location = New Point(32, 148)
+        lblprice.Name = "lblprice"
+        lblprice.Size = New Size(36, 15)
+        lblprice.TabIndex = 7
+        lblprice.Text = "Price:"
+        ' 
         ' AddStockForm
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(338, 293)
+        Controls.Add(lblprice)
+        Controls.Add(txtPrice)
         Controls.Add(btnBack)
         Controls.Add(Label2)
         Controls.Add(Label1)
@@ -93,6 +113,7 @@ Partial Class AddStockForm
         Controls.Add(txtQuantity)
         Controls.Add(btnAddStock)
         Name = "AddStockForm"
+        StartPosition = FormStartPosition.CenterScreen
         Text = "AddStockForm"
         ResumeLayout(False)
         PerformLayout()
@@ -104,4 +125,6 @@ Partial Class AddStockForm
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents btnBack As Button
+    Friend WithEvents txtPrice As TextBox
+    Friend WithEvents lblprice As Label
 End Class

@@ -47,12 +47,12 @@ Partial Class Inventory_Form
         dgvProducts.Name = "dgvProducts"
         dgvProducts.ReadOnly = True
         dgvProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvProducts.Size = New Size(541, 248)
+        dgvProducts.Size = New Size(439, 248)
         dgvProducts.TabIndex = 1
         ' 
         ' btnAdd
         ' 
-        btnAdd.Location = New Point(104, 371)
+        btnAdd.Location = New Point(109, 371)
         btnAdd.Name = "btnAdd"
         btnAdd.Size = New Size(75, 23)
         btnAdd.TabIndex = 2
@@ -61,7 +61,7 @@ Partial Class Inventory_Form
         ' 
         ' btnDelete
         ' 
-        btnDelete.Location = New Point(374, 371)
+        btnDelete.Location = New Point(306, 371)
         btnDelete.Name = "btnDelete"
         btnDelete.Size = New Size(75, 23)
         btnDelete.TabIndex = 3
@@ -70,7 +70,7 @@ Partial Class Inventory_Form
         ' 
         ' btnUpdate
         ' 
-        btnUpdate.Location = New Point(245, 371)
+        btnUpdate.Location = New Point(205, 371)
         btnUpdate.Name = "btnUpdate"
         btnUpdate.Size = New Size(75, 23)
         btnUpdate.TabIndex = 4
@@ -90,12 +90,12 @@ Partial Class Inventory_Form
         ' 
         txtSearch.Location = New Point(140, 57)
         txtSearch.Name = "txtSearch"
-        txtSearch.Size = New Size(273, 23)
+        txtSearch.Size = New Size(191, 23)
         txtSearch.TabIndex = 6
         ' 
         ' btnSearch
         ' 
-        btnSearch.Location = New Point(419, 60)
+        btnSearch.Location = New Point(337, 60)
         btnSearch.Name = "btnSearch"
         btnSearch.Size = New Size(75, 23)
         btnSearch.TabIndex = 7
@@ -104,7 +104,7 @@ Partial Class Inventory_Form
         ' 
         ' btnRefresh
         ' 
-        btnRefresh.Location = New Point(500, 60)
+        btnRefresh.Location = New Point(432, 60)
         btnRefresh.Name = "btnRefresh"
         btnRefresh.Size = New Size(75, 23)
         btnRefresh.TabIndex = 8
@@ -113,7 +113,7 @@ Partial Class Inventory_Form
         ' 
         ' btnBack
         ' 
-        btnBack.Location = New Point(550, 12)
+        btnBack.Location = New Point(432, 12)
         btnBack.Name = "btnBack"
         btnBack.Size = New Size(75, 23)
         btnBack.TabIndex = 9
@@ -122,7 +122,7 @@ Partial Class Inventory_Form
         ' 
         ' btnView
         ' 
-        btnView.Location = New Point(500, 371)
+        btnView.Location = New Point(412, 371)
         btnView.Name = "btnView"
         btnView.Size = New Size(75, 23)
         btnView.TabIndex = 10
@@ -133,7 +133,7 @@ Partial Class Inventory_Form
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(710, 450)
+        ClientSize = New Size(604, 450)
         Controls.Add(btnView)
         Controls.Add(btnBack)
         Controls.Add(btnRefresh)

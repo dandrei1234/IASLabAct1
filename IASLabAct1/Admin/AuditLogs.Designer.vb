@@ -30,14 +30,14 @@ Partial Class AuditLogs
         ' dgvAuditLogs
         ' 
         dgvAuditLogs.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvAuditLogs.Location = New Point(68, 43)
+        dgvAuditLogs.Location = New Point(12, 41)
         dgvAuditLogs.Name = "dgvAuditLogs"
-        dgvAuditLogs.Size = New Size(632, 340)
+        dgvAuditLogs.Size = New Size(960, 483)
         dgvAuditLogs.TabIndex = 0
         ' 
         ' btnBack
         ' 
-        btnBack.Location = New Point(625, 12)
+        btnBack.Location = New Point(897, 12)
         btnBack.Name = "btnBack"
         btnBack.Size = New Size(75, 23)
         btnBack.TabIndex = 1
@@ -48,10 +48,11 @@ Partial Class AuditLogs
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 450)
+        ClientSize = New Size(997, 586)
         Controls.Add(btnBack)
         Controls.Add(dgvAuditLogs)
         Name = "AuditLogs"
+        StartPosition = FormStartPosition.CenterScreen
         Text = "AuditLogs"
         CType(dgvAuditLogs, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)

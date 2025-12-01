@@ -17,8 +17,9 @@ Public Class Inventory_Form
                 If LoggedRole = "admin" Then
                     query = "SELECT * FROM products_tbl"
                 Else
-                    query = "SELECT productId, productName, productprice, quantity FROM products_tbl WHERE is_deleted=0"
+                    query = "SELECT productId, productName, productprice, quantity FROM products_tbl"
                 End If
+
                 Dim adapter As New MySqlDataAdapter(query, conn)
                 Dim dt As New DataTable()
                 adapter.Fill(dt)
@@ -30,6 +31,9 @@ Public Class Inventory_Form
     End Sub
 
     Private Sub Inventory_Form_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        UserActivityMonitor.ResetTimer()
+        UserActivityMonitor.ResetTimer()
+
         If LoggedRole = "admin" Then
             btnUpdate.Visible = True
             btnDelete.Visible = True
@@ -37,9 +41,12 @@ Public Class Inventory_Form
             btnUpdate.Visible = False
             btnDelete.Visible = False
         End If
-        LoadProducts()
 
-        UpdateRowInfo(dgvProducts.CurrentRow.Index)
+        LoadProducts()
+        If dgvProducts.CurrentRow IsNot Nothing Then
+            UpdateRowInfo(dgvProducts.CurrentRow.Index)
+        End If
+
         UserActivityMonitor.SetupInactivityTracking(Me)
     End Sub
 
@@ -52,15 +59,21 @@ Public Class Inventory_Form
 
         Using conn = Connection.Create()
             conn.Open()
-            Dim query As String = "UPDATE products_tbl SET is_deleted = 1 WHERE productid = @id"
-            Dim cmd As New MySqlCommand(query, conn)
 
-            cmd.Parameters.AddWithValue("@id", selectedId)
-            cmd.ExecuteNonQuery()
-            AuditLogging.AddEntry("Stock Deleted", "Original Stock: " & pName & ", " & Environment.NewLine & "Price: " & price & ", " & Environment.NewLine & "Quantity: " & quantity)
+
+            Dim query As String = "DELETE FROM products_tbl WHERE productid = @id"
+            Using cmd As New MySqlCommand(query, conn)
+                cmd.Parameters.AddWithValue("@id", selectedId)
+                cmd.ExecuteNonQuery()
+            End Using
+            AuditLogging.AddEntry(
+            "Stock Deleted",
+            "Original Stock: " & pName & ", " & Environment.NewLine &
+            "Price: " & price & ", " & Environment.NewLine &
+            "Quantity: " & quantity
+        )
         End Using
-
-        MessageBox.Show("Item soft-deleted!")
+        MessageBox.Show("Item deleted!")
         LoadProducts()
         UserActivityMonitor.ResetTimer()
     End Sub

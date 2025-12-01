@@ -58,6 +58,7 @@ Partial Class Form5
         Controls.Add(btnBacktoLogin)
         Controls.Add(Label1)
         Name = "Form5"
+        StartPosition = FormStartPosition.CenterScreen
         Text = "Form5"
         ResumeLayout(False)
         PerformLayout()

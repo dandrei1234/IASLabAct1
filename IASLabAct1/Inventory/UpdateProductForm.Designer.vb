@@ -112,7 +112,7 @@ Partial Class UpdateProductForm
         Controls.Add(Label2)
         Controls.Add(Label1)
         Name = "UpdateProductForm"
-        StartPosition = FormStartPosition.CenterParent
+        StartPosition = FormStartPosition.CenterScreen
         Text = "UpdateProductForm"
         ResumeLayout(False)
         PerformLayout()

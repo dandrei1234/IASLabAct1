@@ -136,6 +136,7 @@ Partial Class Form4
         Controls.Add(Label3)
         Controls.Add(Label2)
         Name = "Form4"
+        StartPosition = FormStartPosition.CenterScreen
         Text = "Form4"
         ResumeLayout(False)
         PerformLayout()

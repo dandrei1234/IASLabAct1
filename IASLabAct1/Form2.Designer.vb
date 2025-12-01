@@ -82,41 +82,41 @@ Partial Class Form2
         ' UserProfileToolStripMenuItem
         ' 
         UserProfileToolStripMenuItem.Name = "UserProfileToolStripMenuItem"
-        UserProfileToolStripMenuItem.Size = New Size(180, 22)
+        UserProfileToolStripMenuItem.Size = New Size(136, 22)
         UserProfileToolStripMenuItem.Text = "Add Profile"
         ' 
         ' InventoryToolStripMenuItem
         ' 
         InventoryToolStripMenuItem.Name = "InventoryToolStripMenuItem"
-        InventoryToolStripMenuItem.Size = New Size(180, 22)
+        InventoryToolStripMenuItem.Size = New Size(136, 22)
         InventoryToolStripMenuItem.Text = "Inventory"
         ' 
         ' ToolStripSeparator1
         ' 
         ToolStripSeparator1.Name = "ToolStripSeparator1"
-        ToolStripSeparator1.Size = New Size(177, 6)
+        ToolStripSeparator1.Size = New Size(133, 6)
         ' 
         ' BackupToolStripMenuItem
         ' 
         BackupToolStripMenuItem.Name = "BackupToolStripMenuItem"
-        BackupToolStripMenuItem.Size = New Size(180, 22)
+        BackupToolStripMenuItem.Size = New Size(136, 22)
         BackupToolStripMenuItem.Text = "Backup"
         ' 
         ' RestoreToolStripMenuItem
         ' 
         RestoreToolStripMenuItem.Name = "RestoreToolStripMenuItem"
-        RestoreToolStripMenuItem.Size = New Size(180, 22)
+        RestoreToolStripMenuItem.Size = New Size(136, 22)
         RestoreToolStripMenuItem.Text = "Restore"
         ' 
         ' ToolStripSeparator2
         ' 
         ToolStripSeparator2.Name = "ToolStripSeparator2"
-        ToolStripSeparator2.Size = New Size(177, 6)
+        ToolStripSeparator2.Size = New Size(133, 6)
         ' 
         ' AuditLogsToolStripMenuItem
         ' 
         AuditLogsToolStripMenuItem.Name = "AuditLogsToolStripMenuItem"
-        AuditLogsToolStripMenuItem.Size = New Size(180, 22)
+        AuditLogsToolStripMenuItem.Size = New Size(136, 22)
         AuditLogsToolStripMenuItem.Text = "Audit Logs"
         ' 
         ' MySqlCommand1
@@ -288,6 +288,7 @@ Partial Class Form2
         Controls.Add(MenuStrip1)
         MainMenuStrip = MenuStrip1
         Name = "Form2"
+        StartPosition = FormStartPosition.CenterScreen
         Text = " "
         MenuStrip1.ResumeLayout(False)
         MenuStrip1.PerformLayout()

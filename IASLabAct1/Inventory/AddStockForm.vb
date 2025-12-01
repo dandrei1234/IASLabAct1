@@ -6,51 +6,62 @@ Public Class AddStockForm
     Dim conn As MySqlConnection = Connection.Create()
     Private Sub btnAddStock_Click(sender As Object, e As EventArgs) Handles btnAddStock.Click
         UserActivityMonitor.ResetTimer()
-        Try
-            If cmbFood.SelectedIndex = -1 Then
-                MessageBox.Show("Please select a product.", "Error")
+
+        UserActivityMonitor.ResetTimer()
+
+        If cmbFood.Text.Trim() = "" Then
+            MessageBox.Show("Enter product name.")
+            Exit Sub
+        End If
+
+        Dim price As Decimal = 0D
+        Dim qty As Integer
+
+        If LoggedRole = "admin" Then
+            If Not Decimal.TryParse(txtPrice.Text, price) OrElse price < 0 Then
+                MessageBox.Show("Enter valid price.")
                 Exit Sub
             End If
+        End If
 
-            Dim qtyToAdd As Integer
-            If Not Integer.TryParse(txtQuantity.Text, qtyToAdd) OrElse qtyToAdd <= 0 Then
-                MessageBox.Show("Please enter a valid quantity.", "Error")
-                Exit Sub
+        If Not Integer.TryParse(txtQuantity.Text, qty) OrElse qty < 0 Then
+            MessageBox.Show("Enter valid quantity.")
+            Exit Sub
+        End If
+
+        Using conn As MySqlConnection = Connection.Create()
+            conn.Open()
+
+            Dim sql As String
+            If LoggedRole = "admin" Then
+                sql = "INSERT INTO products_tbl (productname, productPrice, quantity) " &
+                  "VALUES (@name, @price, @qty);"
+            Else
+                sql = "INSERT INTO products_tbl (productname, productPrice, quantity) " &
+                  "VALUES (@name, 0, @qty);"
             End If
 
-            Using conn As MySqlConnection = Connection.Create()
-                conn.Open()
+            Using cmd As New MySqlCommand(sql, conn)
+                cmd.Parameters.AddWithValue("@name", cmbFood.Text.Trim())
+                cmd.Parameters.AddWithValue("@qty", qty)
+                If LoggedRole = "admin" Then
+                    cmd.Parameters.AddWithValue("@price", price)
+                End If
 
-                Dim currentQty As Integer
-                Dim getQtyQuery As String = "SELECT quantity FROM products_tbl WHERE productname = @name"
+                cmd.ExecuteNonQuery()
 
-                Using cmdGet As New MySqlCommand(getQtyQuery, conn)
-                    cmdGet.Parameters.AddWithValue("@name", cmbFood.Text)
-                    Dim result = cmdGet.ExecuteScalar()
-                    currentQty = Convert.ToInt32(result)
-                End Using
-
-                Dim newQty As Integer = currentQty + qtyToAdd
-
-                Dim updateQuery As String = "UPDATE products_tbl SET quantity = @quantity WHERE productname = @name"
-
-                Using cmdUpdate As New MySqlCommand(updateQuery, conn)
-                    cmdUpdate.Parameters.AddWithValue("@quantity", newQty)
-                    cmdUpdate.Parameters.AddWithValue("@name", cmbFood.Text)
-                    cmdUpdate.ExecuteNonQuery()
-                    AuditLogging.AddEntry("Stock added", "Stock modified: " & cmbFood.Text & ", " & Environment.NewLine & "Added value: " & txtQuantity.Text & ", " & Environment.NewLine & "Current Total stocks " & newQty)
-                End Using
+                AuditLogging.AddEntry(
+                "Stock added",
+                "User role: " & LoggedRole & Environment.NewLine &
+                "Stock modified: " & cmbFood.Text & Environment.NewLine &
+                "Added value: " & qty.ToString() & Environment.NewLine &
+                "Current Total stocks " & qty.ToString()
+            )
             End Using
+        End Using
 
-            MessageBox.Show("Stock Added!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-
-            cmbFood.SelectedIndex = -1
-            txtQuantity.Clear()
-            UserActivityMonitor.ResetTimer()
-        Catch ex As Exception
-            MessageBox.Show(ex.Message)
-        End Try
+        MessageBox.Show("Product added!")
+        Inventory_Form.LoadProducts()
     End Sub
 
     Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
@@ -85,7 +96,7 @@ Public Class AddStockForm
         Using conn As MySqlConnection = Connection.Create()
             conn.Open()
 
-            Dim query As String = "Select productname FROM products_tbl WHERE is_deleted=0"
+            Dim query As String = "Select productname FROM products_tbl"
             If LoggedRole = "admin" Then
                 query = "SELECT productname FROM products_tbl"
             End If
@@ -114,5 +125,16 @@ Public Class AddStockForm
     Private Sub AddStockForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         FillFoodComboBox()
         UserActivityMonitor.SetupInactivityTracking(Me)
+
+
+        If LoggedRole = "staff" Then
+
+            lblprice.Visible = False
+            txtPrice.Visible = False
+        Else
+            lblprice.Visible = True
+            txtPrice.Visible = True
+        End If
     End Sub
+
 End Class

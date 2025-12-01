@@ -8,7 +8,7 @@
 
 
     Public inactivityTimer As New Timer()
-    Public inactivityLimit As Integer = 15
+    Public inactivityLimit As Integer = 120
     Public remainingTime As Integer = inactivityLimit
     Public currentLabel As Label = LogoutTimeTestForm.lbl
 
